@@ -7,11 +7,10 @@
 class ScrollText : public QWidget
 {
 	Q_OBJECT
-		Q_PROPERTY(QString text READ text WRITE setText)
-		Q_PROPERTY(QString separator READ separator WRITE setSeparator)
-		Q_PROPERTY(QFont tfont READ tfont WRITE setTFont)
-		Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor)
-		Q_PROPERTY(QColor foregroundColor READ foregroundColor WRITE setForegroundColor)
+	Q_PROPERTY(QString text READ text WRITE setText)
+	Q_PROPERTY(QString separator READ separator WRITE setSeparator)
+	Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor)
+	Q_PROPERTY(QColor foregroundColor READ foregroundColor WRITE setForegroundColor)
 
 public:
 	ScrollText(QWidget *parent = 0);
@@ -24,14 +23,15 @@ public slots:
 	QString separator() const;
 	void setSeparator(QString separator);
 
-	QFont tfont();
+
 	QColor backgroundColor();
 	QColor foregroundColor();
 
-	void setTFont(QFont font);
 	void setBackgroundColor(QColor color);
 	void setForegroundColor(QColor color);
 
+	void setMoveSpeed(QString sp);
+	void setFontSize(QString fz);
 protected:
 	virtual void paintEvent(QPaintEvent *);
 	virtual void resizeEvent(QResizeEvent *);
@@ -53,6 +53,7 @@ private:
 	QFont _font;
 	QColor _backgroundColor;
 	QColor _foregroundColor;
+	qint32 _imoveSpeed;
 
 private slots:
 	virtual void timer_timeout();

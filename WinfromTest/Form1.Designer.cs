@@ -29,30 +29,49 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            
-      
+            this.axMsgWin1 = new AxCCALGWINCTRLLib.AxMsgWin();
+            this.button1 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.axMsgWin1)).BeginInit();
             this.SuspendLayout();
             // 
-            // axMarqueeActive1
+            // axMsgWin1
             // 
-            
+            this.axMsgWin1.Enabled = true;
+            this.axMsgWin1.Location = new System.Drawing.Point(140, 100);
+            this.axMsgWin1.Name = "axMsgWin1";
+            this.axMsgWin1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMsgWin1.OcxState")));
+            this.axMsgWin1.Size = new System.Drawing.Size(235, 205);
+            this.axMsgWin1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(542, 192);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(83, 50);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-    
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.axMsgWin1);
             this.Name = "Form1";
             this.Text = "Form1";
-        
+            ((System.ComponentModel.ISupportInitialize)(this.axMsgWin1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
+
         #endregion
 
-        
+        private AxCCALGWINCTRLLib.AxMsgWin axMsgWin1;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -11,4 +11,5 @@ QtAxtiveTest::QtAxtiveTest(QWidget *parent)
 	ui.scrollText->setTFont(font);
 	ui.scrollText->setBackgroundColor(qRgb(100, 149, 237));
 	ui.scrollText->setForegroundColor(qRgb(255, 255, 255));
+
 }

@@ -6,11 +6,16 @@ MarqueeActive::MarqueeActive(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+
 	connect(this, &MarqueeActive::textChanged, ui.scrollText, &ScrollText::setText);
-	connect(this, &MarqueeActive::separatorChanged, ui.scrollText, &ScrollText::setSeparator);
-	connect(this, &MarqueeActive::fontChanged, ui.scrollText, &ScrollText::setTFont);
 	connect(this, &MarqueeActive::backgroundColorChanged, ui.scrollText, &ScrollText::setBackgroundColor);
 	connect(this, &MarqueeActive::foregroundColorChanged, ui.scrollText, &ScrollText::setForegroundColor);
+	connect(this, &MarqueeActive::moveSpeedChanged, ui.scrollText, &ScrollText::setMoveSpeed);
+	connect(this, &MarqueeActive::fontSizezChanged, ui.scrollText, &ScrollText::setFontSize);
+	setMoveSpeed("1");
+	setFontSizez("30");
+	setBackgroundColor(qRgb(220, 220, 220));
+	setForegroundColor(qRgb(0, 0, 0));
 }
 
 QString MarqueeActive::text() const
@@ -27,26 +32,6 @@ void MarqueeActive::setText(QString text)
 	}
 }
 
-QString MarqueeActive::separator() const
-{
-	return _separator;
-}
-
-void MarqueeActive::setSeparator(QString separator)
-{
-
-	if (_separator != separator)
-	{
-		_separator = separator;
-		emit textChanged(_separator);
-	}
-}
-
-QFont MarqueeActive::font()
-{
-	return _font;
-}
-
 QColor MarqueeActive::backgroundColor()
 {
 	return _backgroundColor;
@@ -57,11 +42,17 @@ QColor MarqueeActive::foregroundColor()
 	return _foregroundColor;
 }
 
-void MarqueeActive::setFont(QFont font)
+QString MarqueeActive::moveSpeed() const
 {
-	_font = font;
-	emit fontChanged(_font);
+	return _moveSpeed;
 }
+
+QString MarqueeActive::fontSizez() const
+{
+	return _fontSizez;
+}
+
+
 
 void MarqueeActive::setBackgroundColor(QColor color)
 {
@@ -74,6 +65,23 @@ void MarqueeActive::setForegroundColor(QColor color)
 	_foregroundColor = color;
 	emit foregroundColorChanged(_foregroundColor);
 }
+
+void MarqueeActive::setMoveSpeed(QString text)
+{
+	_moveSpeed = text;
+	emit moveSpeedChanged(_moveSpeed);
+}
+
+void MarqueeActive::setFontSizez(QString text)
+{
+	_fontSizez = text;
+	emit fontSizezChanged(_fontSizez);
+}
+
+
+
+
+
 
 QAXFACTORY_DEFAULT(MarqueeActive,
 	"{e198aa3f-58cd-4ef4-b4c9-1472542c6fd9}",

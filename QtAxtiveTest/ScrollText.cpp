@@ -1,7 +1,7 @@
 #include "ScrollText.h"
 #include <QPainter>
 ScrollText::ScrollText(QWidget *parent)
-	: QWidget(parent), scrollPos(0)
+	: QWidget(parent), scrollPos(0), _imoveSpeed(1)
 {
 	staticText.setTextFormat(Qt::PlainText);
 
@@ -13,10 +13,10 @@ ScrollText::ScrollText(QWidget *parent)
 	setForegroundColor(qRgb(0, 0, 0));
 	leftMargin = height() / 3;
 
-	setSeparator(" ");
+	setSeparator("      ");
 
 	connect(&timer, SIGNAL(timeout()), this, SLOT(timer_timeout()));
-	timer.setInterval(20);
+	timer.setInterval(10);
 }
 
 ScrollText::~ScrollText()
@@ -81,6 +81,17 @@ void ScrollText::setForegroundColor(QColor color)
 	updateText();
 }
 
+int ScrollText::speed()
+{
+	return _speed;
+}
+
+void ScrollText::setSpeed(int sp)
+{
+	_speed = sp;
+}
+
+
 void ScrollText::updateText()
 {
 	timer.stop();
@@ -122,12 +133,12 @@ void ScrollText::paintEvent(QPaintEvent*)
 		QPainter pb(&buffer);
 		pb.setPen(_foregroundColor);
 		pb.setFont(_font);
-		
+
 		int x = qMin(-scrollPos, 0) + leftMargin;
 		while (x < width())
 		{
 
-			pb.drawStaticText(QPointF(x, (height() - wholeTextSize.height() ) / 2) + QPoint(2, 2), staticText);
+			pb.drawStaticText(QPointF(x, (height() - wholeTextSize.height()) / 2) + QPoint(2, 2), staticText);
 			x += wholeTextSize.width();
 		}
 
@@ -187,7 +198,7 @@ void ScrollText::resizeEvent(QResizeEvent*)
 
 void ScrollText::timer_timeout()
 {
-	scrollPos = (scrollPos + 1)
+	scrollPos = (scrollPos + _speed)
 		% wholeTextSize.width();
 	update();
 }

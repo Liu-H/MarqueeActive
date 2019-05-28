@@ -1,7 +1,7 @@
 #include "ScrollText.h"
 #include <QPainter>
 ScrollText::ScrollText(QWidget *parent)
-	: QWidget(parent), scrollPos(0)
+	: QWidget(parent), scrollPos(0),_imoveSpeed(1)
 {
 	staticText.setTextFormat(Qt::PlainText);
 
@@ -13,10 +13,10 @@ ScrollText::ScrollText(QWidget *parent)
 	setForegroundColor(qRgb(0, 0, 0));
 	leftMargin = height() / 3;
 
-	setSeparator(" ");
+	setSeparator("      ");
 
 	connect(&timer, SIGNAL(timeout()), this, SLOT(timer_timeout()));
-	timer.setInterval(20);
+	timer.setInterval(40);
 }
 
 ScrollText::~ScrollText()
@@ -49,10 +49,7 @@ void ScrollText::setSeparator(QString separator)
 	update();
 }
 
-QFont ScrollText::tfont()
-{
-	return _font;
-}
+
 
 QColor ScrollText::backgroundColor()
 {
@@ -64,10 +61,7 @@ QColor ScrollText::foregroundColor()
 	return _foregroundColor;
 }
 
-void ScrollText::setTFont(QFont font)
-{
-	_font = font;
-}
+
 
 void ScrollText::setBackgroundColor(QColor color)
 {
@@ -80,6 +74,29 @@ void ScrollText::setForegroundColor(QColor color)
 	_foregroundColor = color;
 	updateText();
 }
+
+void ScrollText::setMoveSpeed(QString sp)
+{
+	bool result;
+	int _t_sp = sp.toInt(&result);
+	if(result)
+	{
+		_imoveSpeed = _t_sp;
+	}
+}
+
+void ScrollText::setFontSize(QString fz)
+{
+	bool result;
+	int _t_fz = fz.toInt(&result);
+	if (result)
+	{
+		_font.setPixelSize(_t_fz);
+		updateText();
+
+	}
+}
+
 
 void ScrollText::updateText()
 {
@@ -187,7 +204,7 @@ void ScrollText::resizeEvent(QResizeEvent*)
 
 void ScrollText::timer_timeout()
 {
-	scrollPos = (scrollPos + 1)
+	scrollPos = (scrollPos + _imoveSpeed)
 		% wholeTextSize.width();
 	update();
 }
